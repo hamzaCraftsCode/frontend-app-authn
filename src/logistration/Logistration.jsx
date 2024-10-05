@@ -117,12 +117,18 @@ const Logistration = (props) => {
           )
           : (
             <div>
-              (!isValidTpaHint() && !hideRegistrationLink && (
-                <Tabs defaultActiveKey={selectedPage} id="controlled-tab" onSelect={(tabKey) => handleOnSelect(tabKey, selectedPage)}>
-                  {/* <Tab title={formatMessage(messages['logistration.register'])} eventKey={REGISTER_PAGE} />*/}
-                  <Tab title={formatMessage(messages['logistration.sign.in'])} eventKey={LOGIN_PAGE} />
-                </Tabs>
-              ))
+              {institutionLogin
+                ? (
+                  <Tabs defaultActiveKey="" id="controlled-tab" onSelect={handleInstitutionLogin}>
+                    <Tab title={tabTitle} eventKey={selectedPage === LOGIN_PAGE ? LOGIN_PAGE : REGISTER_PAGE} />
+                  </Tabs>
+                )
+                : (!isValidTpaHint() && !hideRegistrationLink && (
+                  <Tabs defaultActiveKey={selectedPage} id="controlled-tab" onSelect={(tabKey) => handleOnSelect(tabKey, selectedPage)}>
+                    <Tab title={formatMessage(messages['logistration.register'])} eventKey={REGISTER_PAGE} />
+                    <Tab title={formatMessage(messages['logistration.sign.in'])} eventKey={LOGIN_PAGE} />
+                  </Tabs>
+                ))}
               { key && (
                 <Navigate to={updatePathWithQueryParams(key)} replace />
               )}
